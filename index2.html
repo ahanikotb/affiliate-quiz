@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fitness Quiz</title>
+  <style>
+    .quiz-container {
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 8px;
+    }
+    .progress-bar {
+      height: 20px;
+      background-color: #e0e0e0;
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+    .progress {
+      height: 100%;
+      width: 25%;
+      background-color: #CEAEFD;
+      transition: width 0.3s;
+    }
+    .question {
+      margin-bottom: 20px;
+    }
+    h2 {
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .answers button {
+      background-color: #CEAEFD;
+      color: white;
+      border: none;
+      padding: 15px;
+      margin: 10px 0;
+      width: 100%;
+      font-size: 18px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .answers button:hover {
+      background-color: #9d62f5;
+    }
+    .loading {
+      display: none;
+      margin-top: 20px;
+    }
+    .loading img {
+      width: 50px;
+    }
+    .success-message {
+      display: none;
+      font-size: 20px;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+<div class="quiz-container">
+  <div class="progress-bar">
+    <div class="progress" id="progress"></div>
+  </div>
+  <div id="quiz"></div>
+  <div class="success-message" id="successMessage">
+    <p>Congratulations! This coffee loophole is perfect for your body, Loading your free presentation now</p>
+    <div class="loading"><img src="https://i.gifer.com/ZZ5H.gif" alt="Loading..."></div>
+  </div>
+</div>
+
+<script>
+  const quizData = [
+    {
+      question: "Which of the following best describes your current health and wellness goal?",
+      answers: [
+        "Shed a few pounds and tone up",
+        "Lose significant weight and regain energy",
+        "Improve overall fitness and maintain weight",
+        "Enhance vitality and reduce aging effects"
+      ]
+    },
+    {
+      question: "What challenges have you encountered in your health and wellness journey?",
+      answers: [
+        "Slower metabolism as I age",
+        "Finding time for regular exercise",
+        "Sticking to a healthy eating plan",
+        "Seeing results despite my efforts"
+      ]
+    },
+    {
+      question: "Which benefits are you most interested in achieving?",
+      answers: [
+        "Increased energy and stamina",
+        "Boosted metabolism",
+        "Reduced food cravings",
+        "Slim and toned body"
+      ]
+    },
+    {
+      question: "How do you take your coffee in the morning?",
+      answers: [
+        "Black",
+        "With cream/milk",
+        "With sugar/sweetener",
+        "With cream and sugar"
+      ]
+    }
+  ];
+
+  let currentQuestion = 0;
+  function renderQuestion() {
+    const quizContainer = document.getElementById('quiz');
+    quizContainer.innerHTML = '';
+
+    const questionData = quizData[currentQuestion];
+    const questionDiv = document.createElement('div');
+    questionDiv.className = 'question';
+
+    const questionTitle = document.createElement('h2');
+    questionTitle.innerText = questionData.question;
+    questionDiv.appendChild(questionTitle);
+
+    const answersDiv = document.createElement('div');
+    answersDiv.className = 'answers';
+
+    questionData.answers.forEach((answer, index) => {
+      const button = document.createElement('button');
+      button.innerText = answer;
+      button.onclick = () => nextQuestion();
+      answersDiv.appendChild(button);
+    });
+
+    questionDiv.appendChild(answersDiv);
+    quizContainer.appendChild(questionDiv);
+  }
+
+  function nextQuestion() {
+    if (currentQuestion < quizData.length - 1) {
+      currentQuestion++;
+      updateProgressBar();
+      renderQuestion();
+    } else {
+      showSuccessMessage();
+    }
+  }
+
+  function updateProgressBar() {
+    const progress = document.getElementById('progress');
+    const progressPercentage = ((currentQuestion + 1) / quizData.length) * 100;
+    progress.style.width = progressPercentage + '%';
+  }
+
+  function showSuccessMessage() {
+    document.getElementById('quiz').style.display = 'none';
+    document.getElementById('successMessage').style.display = 'block';
+    document.querySelector('.loading').style.display = 'block';
+    setTimeout(() => {
+      fbq('track', 'ViewContent');
+      window.location.href = 'https://click.audiencealchemists.com/8czcjD';
+    }, 2000);
+  }
+
+  renderQuestion();
+  updateProgressBar();
+</script>
+</body>
+</html>
